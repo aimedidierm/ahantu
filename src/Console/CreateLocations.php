@@ -9,8 +9,8 @@ use Illuminate\Support\Str;
 
 class CreateLocations extends Command
 {
-    protected $signature = 'make:locations';
-    protected $description = 'Create models, migrations, and seeders for locations';
+    protected $signature = 'ahantu:install';
+    protected $description = 'Create models, migrations, and seeders for Rwanda locations from provinces to villages.';
 
     public function handle()
     {
@@ -41,7 +41,6 @@ class CreateLocations extends Command
     protected function getMigrationStub($migrationName)
     {
         $stubPath = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "Database" . DIRECTORY_SEPARATOR . "Migrations" . DIRECTORY_SEPARATOR . "stubs" . DIRECTORY_SEPARATOR . "{$migrationName}.stub";
-        $this->info("Looking for stub at: {$stubPath}"); // for debugging
         if (File::exists($stubPath)) {
             return File::get($stubPath);
         }
