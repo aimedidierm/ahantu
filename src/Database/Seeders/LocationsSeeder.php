@@ -1,6 +1,6 @@
 <?php
 
-namespace Ahantu\Locations\Database\Seeders;
+namespace Ahantu\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Ahantu\Locations\Models\Province;

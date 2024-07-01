@@ -5,13 +5,13 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Ahantu\\Locations\\": "src/"
+            "Ahantu\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Ahantu\\Locations\\LocationsServiceProvider"
+                "Ahantu\\LocationsServiceProvider"
             ]
         }
     },

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ahantu\Locations\Console;
+namespace Ahantu\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
@@ -20,7 +20,7 @@ class CreateLocations extends Command
             $migrationName = 'create_' . Str::plural(strtolower($model)) . '_table';
             $this->createMigration($migrationName);
 
-            Artisan::call('make:model', ['name' => "Ahantu\\Locations\\Models\\$model"]);
+            Artisan::call('make:model', ['name' => "Ahantu\\Models\\$model"]);
             $this->info("Model created for $model");
         }
 

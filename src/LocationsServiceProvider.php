@@ -1,6 +1,6 @@
 <?php
 
-namespace Ahantu\Locations;
+namespace Ahantu;
 
 use Illuminate\Support\ServiceProvider;
 
