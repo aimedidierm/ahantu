@@ -1,0 +1,25 @@
+{
+    "name": "aimedidierm/ahantu",
+    "description": "A Laravel package to help developers to seed Rwanda locations data (province, district, sector, cell, village) in Laravel application.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ahantu\\Locations\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ahantu\\Locations\\LocationsServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "Aime Didier MUGISHA",
+            "email": "aimedidiermugisha@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
