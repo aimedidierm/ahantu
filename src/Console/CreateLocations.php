@@ -49,7 +49,7 @@ class CreateLocations extends Command
 
     protected function createSeeders()
     {
-        $seedersPath = __DIR__ . '/../Database/Seeders';
+        $seedersPath = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "Database" . DIRECTORY_SEPARATOR . "Seeders";
         File::copyDirectory($seedersPath, database_path('seeders'));
 
         $this->info('Seeders copied to database/seeders');
