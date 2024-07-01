@@ -13,7 +13,7 @@ class LocationsSeeder extends Seeder
 {
     public function run()
     {
-        \App\Models\Ahantu\Locations\Database\Models\Province::insert([
+        \App\Models\Province::insert([
             ['id' => 1, 'name' => 'Kigali City'],
             ['id' => 2, 'name' => 'Southern Province'],
             ['id' => 3, 'name' => 'Western Province'],
@@ -21,7 +21,7 @@ class LocationsSeeder extends Seeder
             ['id' => 5, 'name' => 'Eastern Province']
         ]);
 
-        \App\Models\Ahantu\Locations\Database\Models\District::insert([
+        \App\Models\District::insert([
             ['id' => 101, 'name' => 'NYARUGENGE', 'province_id' => 1],
             ['id' => 102, 'name' => 'GASABO', 'province_id' => 1],
             ['id' => 103, 'name' => 'KICUKIRO', 'province_id' => 1],
@@ -54,7 +54,7 @@ class LocationsSeeder extends Seeder
             ['id' => 507, 'name' => 'BUGESERA', 'province_id' => 5]
         ]);
 
-        \App\Models\Ahantu\Locations\Database\Models\Sector::insert([
+        \App\Models\Sector::insert([
             ['id' => 10101, 'name' => 'Gitega', 'district_id' => 101],
             ['id' => 10102, 'name' => 'Kanyinya', 'district_id' => 101],
             ['id' => 10103, 'name' => 'Kigali', 'district_id' => 101],
@@ -473,7 +473,7 @@ class LocationsSeeder extends Seeder
             ['id' => 50715, 'name' => 'Shyara', 'district_id' => 507]
         ]);
 
-        \App\Models\Ahantu\Locations\Database\Models\Cell::insert([
+        \App\Models\Cell::insert([
             ['id' => 1010101, 'name' => 'Akabahizi', 'sector_id' => 10101],
             ['id' => 1010102, 'name' => 'Akabeza', 'sector_id' => 10101],
             ['id' => 1010103, 'name' => 'Gacyamo', 'sector_id' => 10101],
@@ -2624,7 +2624,7 @@ class LocationsSeeder extends Seeder
             ['id' => 5071505, 'name' => 'Rutare', 'sector_id' => 50715]
         ]);
 
-        \App\Models\Ahantu\Locations\Database\Models\Village::insert([
+        \App\Models\Village::insert([
             ['id' => 101010102, 'name' => 'Gihanga', 'cell_id' => 1010101],
             ['id' => 101010103, 'name' => 'Iterambere', 'cell_id' => 1010101],
             ['id' => 101010104, 'name' => 'Izuba', 'cell_id' => 1010101],
