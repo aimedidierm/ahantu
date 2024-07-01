@@ -41,11 +41,13 @@ class CreateLocations extends Command
     protected function getMigrationStub($migrationName)
     {
         $stubPath = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "Database" . DIRECTORY_SEPARATOR . "Migrations" . DIRECTORY_SEPARATOR . "stubs" . DIRECTORY_SEPARATOR . "{$migrationName}.stub";
+        $this->info("Looking for stub at: {$stubPath}"); // for debugging
         if (File::exists($stubPath)) {
             return File::get($stubPath);
         }
         throw new \Exception("Stub not found: {$stubPath}");
     }
+
 
     protected function createSeeders()
     {
