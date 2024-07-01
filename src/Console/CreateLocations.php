@@ -15,21 +15,24 @@ class CreateLocations extends Command
     public function handle()
     {
         $models = ['Province', 'District', 'Sector', 'Cell', 'Village'];
+        $time = time();
 
         foreach ($models as $model) {
             $migrationName = 'create_' . Str::plural(strtolower($model)) . '_table';
-            $this->createMigration($migrationName);
+            $this->createMigration($migrationName, $time);
 
             Artisan::call('make:model', ['name' => "Ahantu\\Locations\\Database\\Models\\$model"]);
             $this->info("Model created for $model");
+
+            $time++;
         }
 
         $this->createSeeders();
     }
 
-    protected function createMigration($migrationName)
+    protected function createMigration($migrationName, $time)
     {
-        $timestamp = date('Y_m_d_His');
+        $timestamp = date('Y_m_d_His', $time);
         $migrationFile = database_path("migrations/{$timestamp}_{$migrationName}.php");
 
         $stub = $this->getMigrationStub($migrationName);
@@ -46,7 +49,6 @@ class CreateLocations extends Command
         }
         throw new \Exception("Stub not found: {$stubPath}");
     }
-
 
     protected function createSeeders()
     {
