@@ -20,7 +20,7 @@ class CreateLocations extends Command
             $migrationName = 'create_' . Str::plural(strtolower($model)) . '_table';
             $this->createMigration($migrationName);
 
-            Artisan::call('make:model', ['name' => "Ahantu\\Models\\$model"]);
+            Artisan::call('make:model', ['name' => "Ahantu\\Locations\\Database\\Models\\$model"]);
             $this->info("Model created for $model");
         }
 
@@ -33,15 +33,18 @@ class CreateLocations extends Command
         $migrationFile = database_path("migrations/{$timestamp}_{$migrationName}.php");
 
         $stub = $this->getMigrationStub($migrationName);
-        File::put($migrationFile, $stub);
+        File::put($migrationFile, "<?php\n\n" . $stub);
 
         $this->info("Migration created: $migrationFile");
     }
 
     protected function getMigrationStub($migrationName)
     {
-        $stub = File::get(__DIR__ . "/../Database/Migrations/stubs/{$migrationName}.stub");
-        return $stub;
+        $stubPath = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "Database" . DIRECTORY_SEPARATOR . "Migrations" . DIRECTORY_SEPARATOR . "stubs" . DIRECTORY_SEPARATOR . "{$migrationName}.stub";
+        if (File::exists($stubPath)) {
+            return File::get($stubPath);
+        }
+        throw new \Exception("Stub not found: {$stubPath}");
     }
 
     protected function createSeeders()
