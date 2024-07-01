@@ -21,13 +21,15 @@ class CreateLocations extends Command
             $migrationName = 'create_' . Str::plural(strtolower($model)) . '_table';
             $this->createMigration($migrationName, $time);
 
-            Artisan::call('make:model', ['name' => "Ahantu\\Locations\\Database\\Models\\$model"]);
+            $this->copyModel($model);
             $this->info("Model created for $model");
+
+            $this->createSeeder($model);
 
             $time++;
         }
 
-        $this->createSeeders();
+        $this->runSeeders();
     }
 
     protected function createMigration($migrationName, $time)
@@ -50,11 +52,39 @@ class CreateLocations extends Command
         throw new \Exception("Stub not found: {$stubPath}");
     }
 
-    protected function createSeeders()
+    protected function copyModel($model)
     {
-        $seedersPath = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "Database" . DIRECTORY_SEPARATOR . "Seeders";
-        File::copyDirectory($seedersPath, database_path('seeders'));
+        $sourcePath = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "Database" . DIRECTORY_SEPARATOR . "Models" . DIRECTORY_SEPARATOR . "{$model}.php";
+        $destinationPath = app_path("Models/{$model}.php");
 
-        $this->info('Seeders copied to database/seeders');
+        if (File::exists($sourcePath)) {
+            File::copy($sourcePath, $destinationPath);
+        } else {
+            throw new \Exception("Model file not found: {$sourcePath}");
+        }
+    }
+
+    protected function createSeeder($model)
+    {
+        $seederName = Str::plural($model) . 'Seeder';
+        $stubPath = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "Database" . DIRECTORY_SEPARATOR . "Seeders" . DIRECTORY_SEPARATOR . "stubs" . DIRECTORY_SEPARATOR . strtolower($seederName) . ".stub";
+        $seederFile = database_path("seeders/{$seederName}.php");
+
+        if (File::exists($stubPath)) {
+            $stub = File::get($stubPath);
+            File::put($seederFile, "<?php\n\n" . $stub);
+            $this->info("Seeder created: $seederFile");
+        } else {
+            $this->error("Stub not found: {$stubPath}");
+        }
+    }
+
+    protected function runSeeders()
+    {
+        $seeders = ['ProvincesSeeder', 'DistrictsSeeder', 'SectorsSeeder', 'CellsSeeder', 'VillagesSeeder'];
+        foreach ($seeders as $seeder) {
+            Artisan::call('db:seed', ['--class' => $seeder]);
+            $this->info("Seeder run: $seeder");
+        }
     }
 }
