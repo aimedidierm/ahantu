@@ -1,7 +1,5 @@
 <?php
 
-namespace Ahantu\Locations\Database\Models;
-
 use Illuminate\Database\Eloquent\Model;
 
 class Village extends Model
@@ -17,8 +15,8 @@ class Village extends Model
         'sector_id' => 'required',
     ];
 
-    public function cell(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function cell()
     {
-        return $this->belongsTo(\App\Models\Ahantu\Cell::class, 'cell_id');
+        return $this->belongsTo(Cell::class, 'cell_id');
     }
 }

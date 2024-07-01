@@ -7,7 +7,7 @@ A Laravel package to help developers seed Rwanda locations data (province, distr
 Install this package as a dependency using [Composer](https://getcomposer.org).
 
 ```bash
-composer require aimedidierm/ahantu
+composer require --dev aimedidierm/ahantu
 ```
 
 ## 🛠️ Usage

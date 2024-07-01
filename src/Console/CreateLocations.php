@@ -3,7 +3,6 @@
 namespace Ahantu\Locations\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -24,12 +23,10 @@ class CreateLocations extends Command
             $this->copyModel($model);
             $this->info("Model created for $model");
 
-            $this->createSeeder($model);
-
             $time++;
         }
 
-        $this->runSeeders();
+        $this->createSeeders();
     }
 
     protected function createMigration($migrationName, $time)
@@ -64,27 +61,12 @@ class CreateLocations extends Command
         }
     }
 
-    protected function createSeeder($model)
-    {
-        $seederName = Str::plural($model) . 'Seeder';
-        $stubPath = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "Database" . DIRECTORY_SEPARATOR . "Seeders" . DIRECTORY_SEPARATOR . "stubs" . DIRECTORY_SEPARATOR . strtolower($seederName) . ".stub";
-        $seederFile = database_path("seeders/{$seederName}.php");
 
-        if (File::exists($stubPath)) {
-            $stub = File::get($stubPath);
-            File::put($seederFile, "<?php\n\n" . $stub);
-            $this->info("Seeder created: $seederFile");
-        } else {
-            $this->error("Stub not found: {$stubPath}");
-        }
-    }
-
-    protected function runSeeders()
+    protected function createSeeders()
     {
-        $seeders = ['ProvincesSeeder', 'DistrictsSeeder', 'SectorsSeeder', 'CellsSeeder', 'VillagesSeeder'];
-        foreach ($seeders as $seeder) {
-            Artisan::call('db:seed', ['--class' => $seeder]);
-            $this->info("Seeder run: $seeder");
-        }
+        $seedersPath = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "Database" . DIRECTORY_SEPARATOR . "Seeders";
+        File::copyDirectory($seedersPath, database_path('seeders'));
+
+        $this->info('Seeders copied to database/seeders');
     }
 }

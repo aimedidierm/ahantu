@@ -1,7 +1,5 @@
 <?php
 
-namespace Ahantu\Locations\Database\Models;
-
 use Illuminate\Database\Eloquent\Model;
 
 class Sector extends Model
@@ -17,13 +15,13 @@ class Sector extends Model
         'district_id' => 'required',
     ];
 
-    public function district(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function district()
     {
-        return $this->belongsTo(\App\Models\Ahantu\District::class, 'district_id');
+        return $this->belongsTo(District::class, 'district_id');
     }
 
-    public function cells(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function cells()
     {
-        return $this->hasMany(\App\Models\Ahantu\Cell::class, 'sector_id');
+        return $this->hasMany(Cell::class, 'sector_id');
     }
 }
