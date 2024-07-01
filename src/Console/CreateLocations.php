@@ -1,6 +1,6 @@
 <?php
 
-namespace Ahantu\Console;
+namespace Ahantu\Locations\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;

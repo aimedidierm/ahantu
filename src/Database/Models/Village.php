@@ -1,6 +1,6 @@
 <?php
 
-namespace Ahantu\Models;
+namespace Ahantu\Locations\Database\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
